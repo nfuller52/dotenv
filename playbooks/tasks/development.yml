@@ -1,0 +1,68 @@
+---
+  - name: "Re-map caps lock to ` (backtick)"
+    shell: "hidutil property --set '{\"UserKeyMapping\":[{\"HIDKeyboardModifierMappingSrc\":0x700000039,\"HIDKeyboardModifierMappingDst\":0x700000035}]}'"
+
+  - name: "Create local bin dir"
+    copy:
+      src: "../files/bin"
+      dest: "{{ ansible_env.HOME }}"
+      mode: '0755'
+
+  - name: Create .config directory
+    file:
+      path: "{{ ansible_env.HOME }}/.config"
+      state: directory
+      mode: '0755'
+
+  - name: "Create developer directory"
+    file:
+      path: "{{ ansible_env.HOME }}/Developer"
+      state: directory
+      mode: '0755'
+
+  - name: "Create personal directory"
+    file:
+      path: "{{ ansible_env.HOME }}/Developer/personal"
+      state: directory
+      mode: '0755'
+
+  - name: "Create work directory"
+    file:
+      path: "{{ ansible_env.HOME }}/Developer/work"
+      state: directory
+      mode: '0755'
+
+  - name: "Create the yabai config directory"
+    file:
+      path: "{{ ansible_env.HOME }}/.config/yabai"
+      state: directory
+      mode: '0755'
+
+  - name: "Add the yabairc config"
+    copy:
+      src: "../files/configs/yabairc.config"
+      dest: "{{ ansible_env.HOME }}/.config/yabai/yabairc"
+      mode: '0644'
+
+  - name: "Create the skhd config directory"
+    file:
+      path: "{{ ansible_env.HOME }}/.config/skhd"
+      state: directory
+      mode: '0755'
+
+  - name: "Add the skhdrc config"
+    copy:
+      src: "../files/configs/skhdrc.config"
+      dest: "{{ ansible_env.HOME }}/.config/skhd/skhdrc"
+      mode: '0644'
+
+  - name: "Copy our nvim settings"
+    copy:
+      src: "../files/configs/nvim"
+      dest: "{{ ansible_env.HOME }}/.config"
+
+  - name: "Add the tmux config"
+    copy:
+      src: "../files/configs/tmux.conf"
+      dest: "{{ ansible_env.HOME }}/.tmux.conf"
+      mode: '0644'

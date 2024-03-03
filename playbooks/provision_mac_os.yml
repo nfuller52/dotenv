@@ -1,0 +1,25 @@
+---
+- name: Provision MacOS
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  vars_files:
+    - ../vars/mac_os_vars.yml
+
+  tasks:
+    - import_tasks: tasks/os_settings.yml
+    - import_tasks: tasks/shell.yml
+    - import_tasks: tasks/applications.yml
+    - import_tasks: tasks/git.yml
+    - import_tasks: tasks/development.yml
+    # - import_tasks: tasks/ide_settings.yml
+    # - import_tasks: tasks/terminal_settings.yml
+    # - import_tasks: tasks/ssh_settings.yml
+    # - import_tasks: tasks/development.yml
+    # - import_tasks: tasks/communication.yml
+    # - import_tasks: tasks/productivity.yml
+    # - import_tasks: tasks/security.yml
+    # - import_tasks: tasks/backup.yml
+    # - import_tasks: tasks/monitoring.yml
+    # - import_tasks: tasks/entertainment.yml
+    # - import_tasks: tasks/other.yml

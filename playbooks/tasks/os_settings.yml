@@ -1,0 +1,48 @@
+---
+  - name: Display hidden files
+    shell: defaults write com.apple.finder AppleShowAllFiles YES
+    changed_when: false
+
+  - name: Show file extensions
+    shell: defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+    changed_when: false
+
+  - name: Show path bar
+    shell: defaults write com.apple.finder ShowPathbar -bool true
+    changed_when: false
+
+  - name: Show status bar
+    shell: defaults write com.apple.finder ShowStatusBar -bool true
+    changed_when: false
+
+  - name: Show Library folder
+    shell: chflags nohidden ~/Library
+    changed_when: false
+
+  - name: Set fast key repeat
+    shell: defaults write NSGlobalDomain KeyRepeat -int 2
+    changed_when: false
+
+  - name: Set fast key initial delay
+    shell: defaults write NSGlobalDomain InitialKeyRepeat -int 15
+    changed_when: false
+
+  - name: Disable auto-correct
+    shell: defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+    changed_when: false
+
+  - name: Disable auto-capitalization
+    shell: defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
+    changed_when: false
+
+  - name: Disable smart quotes
+    shell: defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+    changed_when: false
+
+  - name: Disable smart dashes
+    shell: defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+    changed_when: false
+
+  - name: Reformat display clock to show date
+    shell: defaults write com.apple.menuextra.clock DateFormat -string "EEE MMM d  h:mm:ss a"
+    changed_when: false

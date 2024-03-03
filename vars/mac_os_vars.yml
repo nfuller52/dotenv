@@ -1,0 +1,55 @@
+zsh:
+  external_plugins:
+    - name: zsh-autocomplete
+      repo: https://github.com/marlonrichert/zsh-autocomplete
+
+    - name: zsh-completions
+      repo: https://github.com/zsh-users/zsh-completions
+
+    - name: zsh-syntax-highlighting
+      repo: https://github.com/zsh-users/zsh-syntax-highlighting
+
+  enable_plugins:
+    - asdf
+    - git
+    - golang
+    - python
+    - zsh-autocomplete
+    - zsh-completions
+    - zsh-syntax-highlighting
+
+homebrew:
+  libs:
+    - coreutils
+    - curl
+  apps:
+    - asdf
+    - fzf
+    - git
+    - git-delta
+    - koekeishiya/formulae/skhd
+    - koekeishiya/formulae/yabai
+    - neovim
+    - tmux
+  casks:
+    - chromedriver
+    - docker
+    - firefox
+    - google-chrome
+    - iterm2
+    - maccy
+    - slack
+    - tableplus
+    - visual-studio-code
+    - joplin
+    - 1password
+    - meetingbar
+  fonts:
+    - font-hack-nerd-font
+
+asdf:
+  plugins:
+    - golang
+    - nodejs
+    - python
+    - ruby

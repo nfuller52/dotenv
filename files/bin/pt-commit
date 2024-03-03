@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Extract the current branch name
+BRANCH_NAME=$(git branch --show-current)
+
+# Default Pivotal Tracker ID
+PT_ID=""
+
+if [[ "$BRANCH_NAME" =~ ([0-9]{9,10}) ]]; then
+    PT_ID="[#${BASH_REMATCH[1]}]"
+fi
+
+if [[ " $* " =~ " -m " ]]; then
+    LAST_ARG=${@: -1}
+
+    if [ -n "$LAST_ARG" ]; then
+        set -- "${@:1:$(($#-1))}" "${LAST_ARG} ${PT_ID}"
+    fi
+fi
+
+git commit "$@"

@@ -1,0 +1,18 @@
+---
+  - name: "Alias: Better branch"
+    community.general.git_config:
+      name: alias.bb
+      scope: global
+      value: '!better-branch'
+
+  - name: "Alias: List aliases"
+    community.general.git_config:
+      name: alias.alias
+      scope: global
+      value: '--list-cmds=alias'
+
+  - name: "Alias: Pretty log"
+    community.general.git_config:
+      name: alias.lg
+      scope: global
+      value: "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"

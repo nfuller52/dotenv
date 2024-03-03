@@ -1,0 +1,29 @@
+---
+  - name: Verify brew binary
+    command: which brew
+    register: brew_installed
+    ignore_errors: yes
+    changed_when: false
+
+  - name: Install homebrew applications
+    community.general.homebrew:
+      name: "{{ item }}"
+      state: present
+    loop: "{{ homebrew.libs + homebrew.apps }}"
+    when: brew_installed.rc == 0
+
+  - name: Install homebrew casks
+    community.general.homebrew:
+      name: "homebrew/cask/{{ item }}"
+      state: present
+    loop: "{{ homebrew.casks }}"
+    when: brew_installed.rc == 0
+    ignore_errors: true
+
+  - name: Install homebrew fonts
+    community.general.homebrew:
+      name: "homebrew/cask-fonts/{{ item }}"
+      state: present
+    loop: "{{ homebrew.fonts }}"
+    when: brew_installed.rc == 0
+    ignore_errors: true

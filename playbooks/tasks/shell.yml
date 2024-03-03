@@ -1,0 +1,36 @@
+---
+  - name: Check if Oh My Zsh is installed
+    stat:
+      path: "{{ ansible_env.HOME }}/.oh-my-zsh"
+    register: oh_my_zsh_installed
+    changed_when: false
+
+  - name: Install Oh My Zsh
+    shell: |
+      sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    args:
+      creates: "{{ ansible_env.HOME }}/.oh-my-zsh"
+    when: not oh_my_zsh_installed.stat.exists
+
+  - name: Install zsh plugins
+    ansible.builtin.git:
+      repo: "{{ item.repo }}"
+      dest: "~/.oh-my-zsh/plugins/{{ item.name }}"
+    loop: "{{ zsh.external_plugins }}"
+
+  - name: Backup existing .zshrc file
+    ansible.builtin.copy:
+      src: "{{ ansible_env.HOME }}/.zshrc"
+      dest: "{{ ansible_env.HOME }}/.zshrc-{{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}.bak"
+
+  - name: Copy the zshrc file
+    ansible.builtin.copy:
+      src: ../files/zshrc
+      dest: "{{ ansible_env.HOME }}/.zshrc"
+
+  - name: Enable plugins in .zshrc
+    lineinfile:
+      path: "{{ ansible_env.HOME }}/.zshrc"
+      search_string: "plugins=("
+      line: "plugins=({{ zsh.enable_plugins | sort | join(' ') }})"
+    when: oh_my_zsh_installed.stat.exists
