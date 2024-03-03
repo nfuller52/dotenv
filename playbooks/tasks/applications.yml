@@ -5,6 +5,10 @@
     ignore_errors: yes
     changed_when: false
 
+  - name: Tap into formulae
+    shell: 'brew tap homebrew/cask-fonts && brew tap koekeishiya/formulae'
+    when: brew_installed.rc == 0
+
   - name: Install homebrew applications
     community.general.homebrew:
       name: "{{ item }}"
@@ -26,4 +30,12 @@
       state: present
     loop: "{{ homebrew.fonts }}"
     when: brew_installed.rc == 0
+    ignore_errors: true
+
+  - name: Start skhd
+    shell: skhd start
+    ignore_errors: true
+
+  - name: Start yabai
+    shell: yabai start
     ignore_errors: true

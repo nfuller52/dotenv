@@ -66,3 +66,8 @@
       src: "../files/configs/tmux.conf"
       dest: "{{ ansible_env.HOME }}/.tmux.conf"
       mode: '0644'
+
+  - name: "Download plugins for asdf"
+    shell: "asdf plugin-add {{ item }}"
+    loop: "{{ asdf.plugins }}"
+    ignore_errors: true

@@ -46,3 +46,11 @@
   - name: Reformat display clock to show date
     shell: defaults write com.apple.menuextra.clock DateFormat -string "EEE MMM d  h:mm:ss a"
     changed_when: false
+
+  - name: Turn off natural scrolling
+    shell: defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
+    changed_when: false
+
+  - name: Set the default Finder location to the home folder
+    shell: defaults write com.apple.finder NewWindowTarget -string "PfHm"
+    changed_when: false
