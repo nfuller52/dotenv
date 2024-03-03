@@ -13,20 +13,16 @@
     when: not oh_my_zsh_installed.stat.exists
 
   - name: Install zsh plugins
-    ansible.builtin.git:
+    git:
       repo: "{{ item.repo }}"
       dest: "~/.oh-my-zsh/plugins/{{ item.name }}"
     loop: "{{ zsh.external_plugins }}"
 
-  - name: Backup existing .zshrc file
-    ansible.builtin.copy:
-      src: "{{ ansible_env.HOME }}/.zshrc"
-      dest: "{{ ansible_env.HOME }}/.zshrc-{{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}.bak"
-
   - name: Copy the zshrc file
-    ansible.builtin.copy:
+    copy:
       src: ../files/zshrc
       dest: "{{ ansible_env.HOME }}/.zshrc"
+      backup: true
 
   - name: Enable plugins in .zshrc
     lineinfile:

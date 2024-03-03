@@ -27,8 +27,8 @@ xcode-select --install
 brew install ansible
 ```
 
-5. Run the playbook
+5. Run the playbook to setup the system
 
 ```sh
-ansible-playbook playbooks/provision-mac-os.yml --ask-become-pass
+ansible-playbook playbooks/provision-mac-os.yml --ask-vault-pass
 ```

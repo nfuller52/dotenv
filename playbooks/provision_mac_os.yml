@@ -5,8 +5,10 @@
   gather_facts: true
   vars_files:
     - ../vars/mac_os_vars.yml
+    - ../vars/vaulted.yml
 
   tasks:
+    - import_tasks: tasks/ssh.yml
     - import_tasks: tasks/os_settings.yml
     - import_tasks: tasks/shell.yml
     - import_tasks: tasks/applications.yml

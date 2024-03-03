@@ -1,0 +1,29 @@
+---
+  - name: Create the ssh dir
+    file:
+      path: "{{ansible_env.HOME}}/.ssh"
+      state: directory
+      mode: 0700
+
+  - name: Load the SSH Config File
+    template:
+      src: ../templates/ssh_config
+      dest: "{{ansible_env.HOME}}/.ssh/config"
+      mode: 0644
+      backup: true
+
+  - name: Decode the private SSH key
+    shell: "echo {{ssh_private_key}} | base64 --decode"
+    register: ssh_private_key_decoded
+
+  - name: Create the SSH private key file
+    template:
+      src: ../templates/ssh_private
+      dest: "{{ansible_env.HOME}}/.ssh/id_ed25519"
+      mode: 0600
+
+  - name: Create the SSH public key file
+    template:
+      src: ../templates/ssh_public
+      dest: "{{ansible_env.HOME}}/.ssh/id_ed25519.pub"
+      mode: 0644
